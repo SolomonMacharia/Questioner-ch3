@@ -6,23 +6,28 @@ db_connection = psycopg2.connect("dbname='questioner_dev'")
 def create_tables():
     print('connecting to db')
     conn = db_connection
-    curr = conn.cursor()
+    cur = conn.cursor()
     tables = create_db_tables()
 
     for table in tables:
-        curr.execute(table)
+        cur.execute(table)
     conn.commit()
-
+def drop_tables():
+    '''Deletes all existing tables'''
+    conn = db_connection
+    cur = conn.cursor()
+    cur.execute('''DROP TABLES IF EXISTS users_table, meetups_table, questions_table, rsvps_table''')
+    conn.commit()
 # Create tables
 
 
 def create_db_tables():
     users_table = '''CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
-        username VARCHAR(30) NOT NULL UNIQUE,
-        email VARCHAR(255) NOT NULL UNIQUE,
+        username VARCHAR(30) NOT NULL,
+        email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        confirmPassword VARCHAR(255) NOT NULL,
+        confirm_password VARCHAR(255) NOT NULL,
         registered DATE NOT NULL DEFAULT NOW(),
         isAdmin BOOLEAN
     )'''
