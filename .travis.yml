@@ -20,4 +20,3 @@ after_success:
   - coverage xml
   - codeclimate-test-reporter
   
-  
