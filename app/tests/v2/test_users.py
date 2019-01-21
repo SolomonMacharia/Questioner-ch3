@@ -23,10 +23,10 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(resp.status_code, 201)
 
  
-    # def tearDown(self):
-    #     print('Dropping Tables')
-    #     drop_tables()
-    #     # pass       
+    def tearDown(self):
+        print('Dropping Tables')
+        drop_tables()
+        # pass       
 
 
 if __name__ == '__main__':
