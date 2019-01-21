@@ -1,11 +1,8 @@
-from migrate import db_connection
-conn = db_connection
-cur = conn.cursor()
-
+from . import cur, conn
 
 class Users:
     def __init__(self):
-        self.db = db_connection
+        pass
 
     def create_user(self, username, email, password, confirm_password):
         cur.execute('''INSERT INTO users(username, email, password, confirm_password) VALUES(%s, %s, %s, %s );''',\
