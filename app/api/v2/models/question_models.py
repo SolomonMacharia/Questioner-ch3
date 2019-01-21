@@ -1,8 +1,4 @@
-from migrate import connect_db(url)
-
-conn = connect_db(url)
-cur = conn.cursor
-
+from . import conn, cur
 
 class QuestionModels(object):
     pass
