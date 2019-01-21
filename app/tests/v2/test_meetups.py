@@ -18,16 +18,20 @@ class Testmeetups(unittest.TestCase):
         }
 
         
-    def test_meetup_registration(self):
+    def test_meetup_creation(self):
         resp = self.client.post('/api/v2/meetups', data=json.dumps(self.meetup), content_type='application/json')
         self.assertEqual(resp.status_code, 201)
 
+    def test_get_all_meetups(self):
+        resp = self.client.post('/api/v2/meetups', data=json.dumps(self.meetup), content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
+        resp = self.client.get('/api/v2/meetups', content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
  
     def tearDown(self):
         print('Dropping Tables')
         drop_tables()
-    #     # pass       
-
+        # pass
 
 if __name__ == '__main__':
     unittest.main()
