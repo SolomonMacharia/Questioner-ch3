@@ -31,8 +31,7 @@ class Testmeetups(unittest.TestCase):
     def tearDown(self):
         print('Dropping Tables')
         drop_tables()
-        # pass       
-
+        # pass
 
 if __name__ == '__main__':
     unittest.main()
