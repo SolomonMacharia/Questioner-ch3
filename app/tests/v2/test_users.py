@@ -5,10 +5,10 @@ from migrate import create_tables, drop_tables
 
 class TestUsers(unittest.TestCase):
     def setUp(self):
-        self.app = create_app(app_settings='testing')
+        # import pdb; pdb.set_trace()
+        self.app = create_app(environment='testing')
         self.client = self.app.test_client()
         self.app.testing = True
-        self.db_url = ''
     
         self.user = {
             'username': 'solomon',
@@ -17,14 +17,16 @@ class TestUsers(unittest.TestCase):
             'confirm_password': 'python'
         }
 
-    def tearDown(self):
-        # drop_tables()
-        pass
         
     def test_user_registration(self):
         resp = self.client.post('/api/v2/users', data=json.dumps(self.user), content_type='application/json')
-        self.assertEqual(resp.status_code, 200)
-        
+        self.assertEqual(resp.status_code, 201)
+
+ 
+    # def tearDown(self):
+    #     print('Dropping Tables')
+    #     drop_tables()
+    #     # pass       
 
 
 if __name__ == '__main__':
