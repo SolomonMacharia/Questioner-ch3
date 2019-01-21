@@ -12,6 +12,9 @@ install:
   - pip install codeclimate-test-reporter
 # command to run tests
 
+services: 
+  - postgresql
+
 before_script:
   - psql -c "CREATE DATABASE questioner_test;"
   - coveralls
