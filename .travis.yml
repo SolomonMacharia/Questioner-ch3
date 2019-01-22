@@ -21,7 +21,7 @@ before_script:
   - coveralls
 
 script:
-  - pytest --cov
+  - py.test --cov
 #   -m pytest --cov=app --cov-report term-missing
 
 after_success:
