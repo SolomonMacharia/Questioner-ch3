@@ -18,15 +18,21 @@ class Meetup(Resource):
         data = validate(user_data, required_fields=['location', 'images', 'topic', 'happening_on'])
         if type(data) == list:
             return {"status": 400, "errors": data}, 
-        created_on = datetime.now()
         location = data["location"]
         images = data["images"]
         topic = data['topic']
         happening_on = data['happening_on']
 
-        meetups_db.create_meetup(created_on, location, images, topic, happening_on)
+        meetups_db.create_meetup( location, images, topic, happening_on)
         return {"status": 201, "Message": "Meetup ' {} ' created!". format(topic)}, 201
 
     def get(self):
         all_meetups = meetups_db.get_all_meetups()
-        return all_meetups
+        return {"status": 200, "data": all_meetups}, 200
+
+class SingleMeetup(Meetup):
+    def get(self, id):
+        single_meetup = meetups_db.get_one_meetup(id)
+        return {"status": 200, "data": single_meetup}
+
+        
