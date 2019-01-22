@@ -28,3 +28,10 @@ class Meetups:
             #     abort(400, "Question {} doesn't exist!".format(id) )
             rows = cur.fetchone()
             return rows
+
+    def delete_meetup(self, id):
+        """This methods deletes a meetup from the db based on the its id number."""
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("DELETE FROM meetups WHERE id = {}".format(id))
+            conn.commit()
+            return {"status": 200, "Message": "Meetup deleted"}

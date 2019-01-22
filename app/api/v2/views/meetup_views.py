@@ -35,4 +35,8 @@ class SingleMeetup(Meetup):
         single_meetup = meetups_db.get_one_meetup(id)
         return {"status": 200, "data": single_meetup}
 
-        
+    def delete(self, id):
+        meetups_db.delete_meetup(id)
+        return {"status": 200, "Message": "Meetup {} has been deleted!".format(id)}
+
+
