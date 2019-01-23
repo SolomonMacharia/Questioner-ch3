@@ -1,6 +1,6 @@
 import os
-import re
-import psycopg2
+# import re
+# import psycopg2
 
 from app import create_app
 
