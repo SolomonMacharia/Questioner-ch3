@@ -2,11 +2,11 @@ import unittest
 import json
 from app import create_app
 from migrate import create_tables, drop_tables
+from instance.config import app_settings
 
 class Testmeetups(unittest.TestCase):
     def setUp(self):
-        # import pdb; pdb.set_trace()
-        self.app = create_app(environment='testing')
+        self.app = create_app("testing")
         self.client = self.app.test_client()
         self.app.testing = True
     
