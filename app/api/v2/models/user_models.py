@@ -1,4 +1,7 @@
-from . import cur, conn
+from migrate import db_url
+
+conn = db_url
+cur = conn.cursor()
 
 class Users:
     def __init__(self):
