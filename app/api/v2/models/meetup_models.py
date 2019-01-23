@@ -1,7 +1,10 @@
-from . import conn, cur
+from migrate import db_url
 from flask import jsonify, abort
 from datetime import datetime
 from psycopg2.extras import RealDictCursor
+
+conn = db_url
+cur = conn.cursor()
 
 class Meetups:
     ''''This is the meetups model that aids in DB transactions''' 
@@ -24,8 +27,7 @@ class Meetups:
         """Fetches a single meetup from the db based on it's id"""
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute("SELECT id, created_on, location, images, topic, happening_on, tags FROM meetups WHERE id = {}".format(id) )
-            # if id == None:
-            #     abort(400, "Question {} doesn't exist!".format(id) )
+
             rows = cur.fetchone()
             return rows
 
