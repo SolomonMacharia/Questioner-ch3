@@ -60,8 +60,7 @@ def create_db_tables():
         images VARCHAR(255),
         topic VARCHAR(255),
         happening_on VARCHAR(25),
-        tags VARCHAR(255),
-
+        tags VARCHAR(255)
     );'''
     print("....meetups_table created ")
 
@@ -74,7 +73,6 @@ def create_db_tables():
         title VARCHAR(255),
         body VARCHAR(255),
         votes INT
-
     );'''
     print("....questons_table created")
 
