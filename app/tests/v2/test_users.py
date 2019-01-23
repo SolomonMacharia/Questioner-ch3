@@ -6,7 +6,7 @@ from migrate import create_tables, drop_tables
 class TestUsers(unittest.TestCase):
     def setUp(self):
         # import pdb; pdb.set_trace()
-        self.app = create_app(environment='testing')
+        self.app = create_app('testing')
         self.client = self.app.test_client()
         self.app.testing = True
     
