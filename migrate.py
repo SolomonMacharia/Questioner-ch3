@@ -42,6 +42,7 @@ def drop_tables():
 def create_db_tables():
     users_table = '''CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
+        u_id INT,
         username VARCHAR(30) NOT NULL,
         email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
@@ -53,12 +54,14 @@ def create_db_tables():
 
     meetups_table = '''CREATE TABLE IF NOT EXISTS meetups(
         id SERIAL PRIMARY KEY,
+        m_id INT,
         created_on VARCHAR(50),
         location VARCHAR(255),
         images VARCHAR(255),
         topic VARCHAR(255),
         happening_on VARCHAR(25),
-        tags VARCHAR(255)
+        tags VARCHAR(255),
+
     );'''
     print("....meetups_table created ")
 
@@ -85,5 +88,5 @@ def create_db_tables():
     tables = [users_table, meetups_table, questions_table, rsvps_table]
     return tables
 
-create_tables()
-drop_tables()
+# create_tables()
+# drop_tables()
