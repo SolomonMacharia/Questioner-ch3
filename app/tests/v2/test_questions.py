@@ -1,9 +1,10 @@
+import os
 import unittest
 import json
 from app import create_app
 from migrate import create_tables, drop_tables
 
-class TestUsers(unittest.TestCase):
+class TestQuestions(unittest.TestCase):
     def setUp(self):
         # import pdb; pdb.set_trace()
         self.app = create_app(environment='testing')
@@ -15,7 +16,10 @@ class TestUsers(unittest.TestCase):
             'body': 'body'
         }
 
-        
+    def test_question_creation(self):
+        resp = self.client.post('/api/v2/meetups', data=json.dumps(self.question), content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
+
     def test_get_all_questions(self):
         resp = self.client.get('/api/v2/questions', data=json.dumps(self.question), content_type='application/json')
         self.assertEqual(resp.status_code, 200)
