@@ -42,7 +42,6 @@ def drop_tables():
 def create_db_tables():
     users_table = '''CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
-        u_id INT,
         username VARCHAR(30) NOT NULL,
         email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
