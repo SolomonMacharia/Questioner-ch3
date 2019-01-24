@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from .views.user_views import User
+from .views.user_views import User, SingleUser, UserLogin
 from .views.meetup_views import Meetup, SingleMeetup
 from .views.question_views import Questions
 from flask import Blueprint
@@ -12,4 +12,5 @@ api.add_resource(User, '/users')
 api.add_resource(Meetup, '/meetups')
 api.add_resource(SingleMeetup, '/meetups/<int:id>')
 api.add_resource(Questions, '/questions')
-
+api.add_resource(SingleUser, '/users/<int:id>')
+api.add_resource(UserLogin, '/auth/login')

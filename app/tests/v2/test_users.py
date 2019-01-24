@@ -22,7 +22,12 @@ class TestUsers(unittest.TestCase):
         resp = self.client.post('/api/v2/users', data=json.dumps(self.user), content_type='application/json')
         self.assertEqual(resp.status_code, 201)
 
- 
+    def test_invalid_email(self):
+        payload ={'username': 'solomon', 'email': 'sol', 'password': 'python', 'confirm_password': 'python'}
+        resp = self.client.post('/api/v2/auth/login', data=json.dumps(payload), content_type='application/json')
+        self.assertEqual(resp.status_code, 400)
+        res = json.loads(resp.data)
+        self.assertEqual(res['message'], 'Incorrect email format!')
     def tearDown(self):
         print('Dropping Tables')
         drop_tables()
