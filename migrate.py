@@ -34,7 +34,7 @@ def drop_tables():
     '''Deletes all existing tables'''
     conn = db_connection(database_url)
     cur = conn.cursor()
-    cur.execute('''DROP TABLE IF EXISTS users_table, meetups_table, questions_table, rsvps_table''')
+    cur.execute('''DROP TABLE IF EXISTS users, meetups, questions, rsvps''')
     conn.commit()
 # Create tables
 
@@ -65,10 +65,8 @@ def create_db_tables():
 
     questions_table = '''CREATE TABLE IF NOT EXISTS questions(
         id SERIAL PRIMARY KEY,
-        meetupid INT REFERENCES meetups(id) ON DELETE CASCADE,
+        userid INT REFERENCES users(id),
         created_on VARCHAR(50),
-        created_by INT NOT NULL,
-        meetup INT NOT NULL,
         title VARCHAR(255),
         body VARCHAR(255),
         votes INT
@@ -85,5 +83,5 @@ def create_db_tables():
     tables = [users_table, meetups_table, questions_table, rsvps_table]
     return tables
 
-# create_tables()
+create_tables()
 # drop_tables()
