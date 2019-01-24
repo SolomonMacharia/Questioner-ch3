@@ -27,7 +27,7 @@ class User(Resource):
             abort(400, "Passwords do not much!")
 
         if not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-            abort(400, "Incorrect email format!")
+            abort(400, "Incorrect email format!"), 400
         
         user_db.create_user(username, email.lower(), generate_password_hash(password), check_password_hash(password, confirm_password))
         return {"status": 201, "Message": "User {} created!". format(username)}, 201
