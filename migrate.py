@@ -16,9 +16,11 @@ if environment == 'testing':
 
 
 def db_connection(database_url):
-    host, port, db_name = re.match('postgres://(.*?):(.*?)/(.*)', database_url).groups()
+    host, port, db_name = re.match(
+        'postgres://(.*?):(.*?)/(.*)', database_url).groups()
     conn = psycopg2.connect("dbname={}".format(db_name))
     return conn
+
 
 def create_tables():
     print('connecting to db')
@@ -26,62 +28,62 @@ def create_tables():
     cur = conn.cursor()
     tables = create_db_tables()
 
+    tables_names = ['users', 'meetups', 'questions', 'rsvps']
+    current_table = 0
     for table in tables:
         cur.execute(table)
         conn.commit()
+        print("...{} created".format(tables_names[current_table]))
+        current_table += 1
+
 
 def drop_tables():
     '''Deletes all existing tables'''
     conn = db_connection(database_url)
     cur = conn.cursor()
-    cur.execute('''DROP TABLE IF EXISTS users, meetups, questions, rsvps''')
+    cur.execute(
+        '''DROP TABLE IF EXISTS rsvps, questions, meetups, users''')
     conn.commit()
-# Create tables
 
 
 def create_db_tables():
     users_table = '''CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
         username VARCHAR(30) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         confirm_password VARCHAR(255) NOT NULL,
         registered VARCHAR(50),
         isAdmin BOOLEAN
     );'''
-    print("....users_table created")
 
     meetups_table = '''CREATE TABLE IF NOT EXISTS meetups(
         id SERIAL PRIMARY KEY,
-        m_id INT,
         created_on VARCHAR(50),
+        created_by INTEGER NOT NULL REFERENCES users (id),
         location VARCHAR(255),
         images VARCHAR(255),
         topic VARCHAR(255),
-        happening_on VARCHAR(25),
-        tags VARCHAR(255)
+        happening_on VARCHAR(25)
     );'''
-    print("....meetups_table created ")
+    # print("....meetups_table created ")
 
     questions_table = '''CREATE TABLE IF NOT EXISTS questions(
         id SERIAL PRIMARY KEY,
-        userid INT REFERENCES users(id),
+        created_by INTEGER NOT NULL REFERENCES users (id),
+        meetup_id INTEGER NOT NULL REFERENCES meetups (id),
         created_on VARCHAR(50),
         title VARCHAR(255),
         body VARCHAR(255),
-        votes INT
+        votes INT DEFAULT 0
     );'''
-    print("....questons_table created")
 
     rsvps_table = '''CREATE TABLE IF NOT EXISTS rsvps(
         id SERIAL PRIMARY KEY,
         meetupid INT NOT NULL,
         response VARCHAR(255)
+
     );'''
-    print("....rsvp_tables created")
 
     tables = [users_table, meetups_table, questions_table, rsvps_table]
     return tables
-
-create_tables()
-# drop_tables()
