@@ -7,7 +7,7 @@ class Config:
     DEBUG = False
     TESTING = False
     CSRF_ENABLED =  True
-    SECRET_KEY = b'gn%\x92\x08Zp\xffZgg~\xa4\xfcY\x8b\xb4H\xebL\xd7\xa4\x80V'
+    JWT_SECRET_KEY = b'gn%\x92\x08Zp\xffZgg~\xa4\xfcY\x8b\xb4H\xebL\xd7\xa4\x80V'
     DATABASE_URL = os.getenv('DATABASE_URL')
 
 class ProductionConfig(Config):
