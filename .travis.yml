@@ -22,6 +22,9 @@ before_script:
 
 script:
   - py.test --cov
+  - export FLASK_ENV='testing'
+  - export JWT_SECRET_KEY = 'b'gn%\x92\x08Zp\xffZgg~\xa4\xfcY\x8b\xb4H\xebL\xd7\xa4\x80V'
+  - export TEST_DATABASE_URL='postgres://localhost:5432/questioner_test'
 #   -m pytest --cov=app --cov-report term-missing
 
 after_success:
@@ -29,3 +32,5 @@ after_success:
   # - coverage xml
   # - codeclimate-test-reporter
   
+cache:
+  - pip
