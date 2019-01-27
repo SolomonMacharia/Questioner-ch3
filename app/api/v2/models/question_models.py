@@ -47,3 +47,21 @@ class QuestionModels(object):
                 upvoted_question = cur.fetchone()
                 conn.commit()
                 return upvoted_question
+
+    def downvote_question(self, id):
+        """Updates votes"""
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT votes FROM questions WHERE id = {}".format(id))
+            data = cur.fetchone()
+
+            if not data:
+                return {'Message': 'Question {} doesnt exist'.format(id)}
+
+            vote = data['votes'] - 1
+
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute(
+                    "UPDATE questions SET votes = %s WHERE id = %s RETURNING *", (vote, id))
+                downvoted_question = cur.fetchone()
+                conn.commit()
+                return downvoted_question
