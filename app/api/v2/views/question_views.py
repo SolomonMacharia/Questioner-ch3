@@ -57,3 +57,10 @@ class SingleQuestion(Questions):
         upvoted = questions_db.upvote_question(id)
         if (upvoted):
             return {"status": 200, "data": upvoted}, 200
+
+
+class DownvoteQuestion(Resource):
+    def patch(self, id):
+        downvoted = questions_db.downvote_question(id)
+        if downvoted:
+            return {"status": 200, "data": downvoted}, 200

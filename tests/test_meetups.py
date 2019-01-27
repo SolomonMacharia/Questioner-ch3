@@ -63,25 +63,25 @@ class Testmeetups(unittest.TestCase):
         self.assertNotEqual(after_insert_count, 0)
 
     # def test_get_specific_meetups(self):
-        # response = self.client.post(
-        #     '/api/v2/meetups', data=self.meetup, headers=self.headers)
+    #     response = self.client.post(
+    #         '/api/v2/meetups', data=self.meetup, headers=self.headers)
 
-        # resp = self.client.get('/api/v2/meetups/1',
-        #                        headers=self.headers)
-        # specific_meetup = json.loads(resp.get_data())
-        # print('qqq', specific_meetup)
-        # self.assertEqual(specific_meetup['data']
-        #                  ['topic'], 'Team collaboration')
+    #     resp = self.client.get('/api/v2/meetups/1',
+    #                            headers=self.headers)
+    #     specific_meetup = json.loads(resp.get_data())
+    #     print('qqq', specific_meetup)
+    #     self.assertEqual(specific_meetup['data']
+    #                      ['topic'], 'Team collaboration')
 
-        #     def test_delete_meetups(self):
-        #         resp = self.client.post(
-        #             '/api/v2/meetups', data=json.dumps(self.meetup), content_type='application/json')
-        #         self.assertEqual(resp.status_code, 201)
-        #         resp = self.client.delete(
-        #             '/api/v2/meetups/1', content_type='application/json')
-        #         self.assertEqual(resp.status_code, 200)
-        #         resp = json.loads(resp.data)
-        #         self.assertEqual(resp['Message'], "Meetup 1 has been deleted!")
+    def test_delete_meetups(self):
+        resp = self.client.post(
+            '/api/v2/meetups', data=json.dumps(self.meetup), content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
+        resp = self.client.delete(
+            '/api/v2/meetups/1', content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
+        resp = json.loads(resp.data)
+        self.assertEqual(resp['Message'], "Meetup 1 has been deleted!")
 
     def tearDown(self):
         drop_tables()

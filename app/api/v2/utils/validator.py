@@ -2,7 +2,6 @@ from flask import abort, request
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
-from app import config
 import jwt
 from functools import wraps
 
